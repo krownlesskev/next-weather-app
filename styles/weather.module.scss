@@ -1,5 +1,5 @@
 .weatherCard {
-    margin-top: 10rem;
+    margin: 1rem;
     border-radius: 10px;
     width: 200px;
     height: 320px;
@@ -20,7 +20,7 @@
         max-width: 100px;
     }
 
-    .cityName {
+    .day {
         font-size: 24px;
         font-weight: 700;
     }
