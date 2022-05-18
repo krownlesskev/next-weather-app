@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import CurrentWeather from '../components/WeatherCard';
+import WeatherCard from '../components/WeatherCard';
 import styles from '../styles/home.module.scss';
 
 
@@ -8,11 +8,11 @@ export default function Home({ currentWeatherData, fiveDayForecastData }) {
     <div className={styles.container}>
       <p className={styles.name}>{currentWeatherData.name}</p>
       <div className={styles.weatherCards}>
-        <CurrentWeather currentWeatherData={currentWeatherData} day0 />
-        <CurrentWeather currentWeatherData={currentWeatherData} day1 />
-        <CurrentWeather currentWeatherData={currentWeatherData} day2 />
-        <CurrentWeather currentWeatherData={currentWeatherData} day3 />
-        <CurrentWeather currentWeatherData={currentWeatherData} day4 />
+        <WeatherCard currentWeatherData={currentWeatherData} day0 />
+        <WeatherCard fiveDayForecastData={fiveDayForecastData} day1 />
+        <WeatherCard fiveDayForecastData={fiveDayForecastData} day2 />
+        <WeatherCard fiveDayForecastData={fiveDayForecastData} day3 />
+        <WeatherCard fiveDayForecastData={fiveDayForecastData} day4 />
       </div>
     </div>
   );

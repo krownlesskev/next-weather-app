@@ -1,4 +1,5 @@
 import styles from '../styles/weather.module.scss';
+import { useState, useEffect } from 'react';
 
 const currentDayOfTheWeek = (day) => {
     const currentDate = new Date();
@@ -58,21 +59,61 @@ const currentDayOfTheWeek = (day) => {
 };
 
 
-const WeatherCard = ({ currentWeatherData, day0, day1, day2, day3, day4 }) => {
+
+const WeatherCard = ({ currentWeatherData, fiveDayForecastData, day0, day1, day2, day3, day4 }) => {
+    const [weatherIcon, setWeatherIcon] = useState();
+    const [currentWeather, setCurrentWeather] = useState();
+    const [tempMin, setTempMin] = useState();
+    const [tempMax, setTempMax] = useState();
+    const [dayOfTheWeek, setDayOfTheWeek] = useState();
+
+    useEffect(() => {
+        if (day0) {
+            setWeatherIcon(currentWeatherData.weather[0].icon);
+            setCurrentWeather(Math.round(currentWeatherData.main.feels_like));
+            setTempMin(Math.round(currentWeatherData.main.temp_min));
+            setTempMax(Math.round(currentWeatherData.main.temp_max));
+        } else if (day1) {
+            setWeatherIcon(fiveDayForecastData.list[0].weather[0].icon);
+            setCurrentWeather(Math.round(fiveDayForecastData.list[0].main.feels_like));
+            setTempMin(Math.round(fiveDayForecastData.list[0].main.temp_min));
+            setTempMax(Math.round(fiveDayForecastData.list[0].main.temp_max));
+            setDayOfTheWeek(1);
+        } else if (day2) {
+            setWeatherIcon(fiveDayForecastData.list[7].weather[0].icon);
+            setCurrentWeather(Math.round(fiveDayForecastData.list[7].main.feels_like));
+            setTempMin(Math.round(fiveDayForecastData.list[7].main.temp_min));
+            setTempMax(Math.round(fiveDayForecastData.list[7].main.temp_max));
+            setDayOfTheWeek(2);
+        } else if (day3) {
+            setWeatherIcon(fiveDayForecastData.list[15].weather[0].icon);
+            setCurrentWeather(Math.round(fiveDayForecastData.list[15].main.feels_like));
+            setTempMin(Math.round(fiveDayForecastData.list[15].main.temp_min));
+            setTempMax(Math.round(fiveDayForecastData.list[15].main.temp_max));
+            setDayOfTheWeek(3);
+        } else if (day4) {
+            setWeatherIcon(fiveDayForecastData.list[23].weather[0].icon);
+            setCurrentWeather(Math.round(fiveDayForecastData.list[23].main.feels_like));
+            setTempMin(Math.round(fiveDayForecastData.list[23].main.temp_min));
+            setTempMax(Math.round(fiveDayForecastData.list[23].main.temp_max));
+            setDayOfTheWeek(4);
+        }
+    }, []);
+
     return (
         <div className={styles.weatherCard}>
             <p className={styles.day}>
-                {day0 ? currentDayOfTheWeek() : null}
-                {day1 ? currentDayOfTheWeek(1) : null}
-                {day2 ? currentDayOfTheWeek(2) : null}
-                {day3 ? currentDayOfTheWeek(3) : null}
-                {day4 ? currentDayOfTheWeek(4) : null}
+                {currentDayOfTheWeek(dayOfTheWeek)}
             </p>
-            <img src={`http://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}@2x.png`} alt="Weather Icon" />
-            <p className={styles.tempCurrent}>{currentWeatherData.main.feels_like}&#730;</p>
+            <img src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`} alt="Weather Icon" />
+            <p className={styles.tempCurrent}>{currentWeather}&deg;c</p>
             <div className={styles.tempMinMax}>
-                <p className={styles.tempMin}>{currentWeatherData.main.temp_min}&#730;</p>
-                <p className={styles.tempMax}>{currentWeatherData.main.temp_max}&#730;</p>
+                <p className={styles.tempMin}>
+                    {tempMin}&deg;c
+                </p>
+                <p className={styles.tempMax}>
+                    {tempMax}&deg;c
+                </p>
             </div>
         </div>
     );
