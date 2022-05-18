@@ -1,20 +1,25 @@
 import Axios from 'axios';
 import WeatherCard from '../components/WeatherCard';
 import styles from '../styles/home.module.scss';
-
+import Head from 'next/head';
 
 export default function Home({ currentWeatherData, fiveDayForecastData }) {
   return (
-    <div className={styles.container}>
-      <p className={styles.name}>{currentWeatherData.name}</p>
-      <div className={styles.weatherCards}>
-        <WeatherCard currentWeatherData={currentWeatherData} day0 />
-        <WeatherCard fiveDayForecastData={fiveDayForecastData} day1 />
-        <WeatherCard fiveDayForecastData={fiveDayForecastData} day2 />
-        <WeatherCard fiveDayForecastData={fiveDayForecastData} day3 />
-        <WeatherCard fiveDayForecastData={fiveDayForecastData} day4 />
+    <>
+      <Head>
+        <title>NextJS Weather App</title>
+      </Head>
+      <div className={styles.container}>
+        <p className={styles.name}>{currentWeatherData.name}</p>
+        <div className={styles.weatherCards}>
+          <WeatherCard currentWeatherData={currentWeatherData} day0 />
+          <WeatherCard fiveDayForecastData={fiveDayForecastData} day1 />
+          <WeatherCard fiveDayForecastData={fiveDayForecastData} day2 />
+          <WeatherCard fiveDayForecastData={fiveDayForecastData} day3 />
+          <WeatherCard fiveDayForecastData={fiveDayForecastData} day4 />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
